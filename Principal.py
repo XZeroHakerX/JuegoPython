@@ -1,8 +1,10 @@
 import pygame, sys
 from pygame.locals import *
+from Personaje import *
 
 # Inicializamos Pygame
 pygame.init()
+
 
 # Variables de configuración
 W, H = 1000, 600
@@ -25,6 +27,8 @@ saltoAni = [pygame.image.load(f"imagenes/salto{i+1}.png").convert_alpha() for i 
 caminaderecha = [pygame.image.load(f"imagenes/caminar/andar{i+1}.png").convert_alpha() for i in range(8)]
 caminaizquierda = [pygame.image.load(f"imagenes/caminar/andar{i+1}I.png").convert_alpha() for i in range(8)]
 
+
+personaje = Personaje()
 # Variables del personaje
 px = 50
 py = 450
@@ -35,9 +39,10 @@ velocidad = 10
 salto = False
 alturaSalto = 10
 
+
 #Musica fondo
-pygame.mixer.music.load("sonidos/sonido_pelea.mp3")
-pygame.mixer.music.play(-1)
+#pygame.mixer.music.load("sonidos/sonido_pelea.mp3")
+#pygame.mixer.music.play(-1)
 
 # Variables de movimiento
 en_idle = True
@@ -106,11 +111,11 @@ while ejecuta:
         izquierda = False
         derecha = False
 
-    if keys[pygame.K_w] and py > 360:
+    if keys[pygame.K_w] and py > 360 and not salto:
         py -= velocidad
         arriba = True
         abajo = False
-    elif keys[pygame.K_s] and py < 450 :
+    elif keys[pygame.K_s] and py < 450 and not salto:
         py += velocidad
         abajo = True
         arriba = False
@@ -121,21 +126,21 @@ while ejecuta:
     if not salto:
         if keys[pygame.K_SPACE]:
             salto = True
-            alturaSalto = 8
+            alturaSalto = 10
     else:
-        if alturaSalto >= -8:
+        if alturaSalto >= -10:
             py -= (alturaSalto * abs(alturaSalto)) * 0.5
             alturaSalto -= 1
         else:
             salto = False
-            alturaSalto = 8
+            alturaSalto = 10
 
-    if keys[pygame.K_9] and pygame.mixer.music.get_volume() > 0.0:
-        pygame.mixer.music.set_volume(pygame.mixer.music.get_volume() + 0.10)
+    #if keys[pygame.K_9] and pygame.mixer.music.get_volume() > 0.0:
+        #pygame.mixer.music.set_volume(pygame.mixer.music.get_volume() + 0.10)
 
 
-    if keys[pygame.K_0] and pygame.mixer.music.get_volume() < 1.0:
-        pygame.mixer.music.set_volume(pygame.mixer.music.get_volume() - 0.10)
+    #if keys[pygame.K_0] and pygame.mixer.music.get_volume() < 1.0:
+        #pygame.mixer.music.set_volume(pygame.mixer.music.get_volume() - 0.10)
 
     # Actualizar la pantalla
     actualizarPantalla()
