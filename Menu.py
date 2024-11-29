@@ -49,6 +49,6 @@ if __name__ == "__main__":
             ejecutar = False
 
         contador += 1
-        pygame.display.update()
+        pygame.display.flip()
 
 pygame.quit()
