@@ -2,74 +2,20 @@ import pygame
 from Constantes import *
 import random
 
-class Enemigo1(pygame.sprite.Sprite):
+from EnemigoBase import EnemigoBase
 
-    def __init__(self, px, py):
+# Enemigo 1 tiene velocidad y tiempo ataque aleatorios, pero cuando se instancia el enemigo, no varian:
+class Enemigo1(EnemigoBase):
 
-        super().__init__()
-        self.px = px
-        self.py = py
-        self.rect = pygame.Rect(self.px, self.py, ANCHO_ENEMIGO1, ALTURA_ENEMIGO1)
-        self.contador_tiempo_ataques = 0
-        self.tiempo_entre_ataques = random.randrange(20,60)
+    def __init__(self):
+        super().__init__(POSICION_INICIAL_X_ENEMIGO1, POSICION_INICIAL_Y_ENEMIGO1 + random.randrange(-65, 35), ANCHO_ENEMIGO1, ALTURA_ENEMIGO1, POSICION_INICIAL_X_ENEMIGO1 + CENTRO_X_CUADRADO_E1,
+                         POSICION_INICIAL_Y_ENEMIGO1 + CENTRO_Y_CUADRADO_E1, VELOCIDAD_ENEMIGO1 + random.randrange(10,30), random.choice([0.02,0.04,0.06,0.08]), VIDA_ENEMIGO1)
 
-        self.caminaizquierda = [pygame.image.load(f"imagenes/caminar/andar{i + 1}I.png").convert_alpha() for i in range(8)]
-
-        self.contador_animacion_ataques = 0
-        self.atacando = False
-        self.cuenta_imagenes = 0
-        self.direccion = False
-
-        # Aseguramos que el sprite tiene un atributo image
-        self.image = self.caminaizquierda[0]  # Asignamos la primera imagen de caminar a la imagen inicial
-
-    def ejecutarEnemigo1(self, pantalla):
-
-        self.atacarAleatorio()
-        self.mover()
-        self.dibujar(pantalla)
-
-    def atacarAleatorio(self):
-
-        if self.contador_tiempo_ataques < self.tiempo_entre_ataques:
-            self.contador_tiempo_ataques += 1
-        else:
-            self.contador_tiempo_ataques = 0
-            self.tiempo_entre_ataques = random.randrange(20, 60)
-            self.atacando = True
-
-
-        if self.atacando:
-            if self.contador_animacion_ataques < TIEMPO_ANIMACION_ATAQUE:
-                self.contador_animacion_ataques += 1
-            else:
-                self.contador_animacion_ataques = 0
-                self.atacando = False
-
-    def mover(self):
-
-        if self.px > - 1000:
-            self.px = self.px - VELOCIDAD_ENEMIGO1 + random.randrange(-40,40)
-
-        self.rect.topleft = (self.px + CENTRO_X_CUADRADO, self.py + CENTRO_Y_CUADRADO)
-
-    def dibujar(self, pantalla):
-
-        # Animación según la dirección
-        if self.cuenta_imagenes >= 8:
-            self.cuenta_imagenes = 0
-
-        if not self.atacando:
-            self.image = self.caminaizquierda[self.cuenta_imagenes // 1]  # Actualizar la imagen
-            pantalla.blit(self.image, (int(self.px), int(self.py)))
-            pygame.draw.rect(pantalla, (0, 255, 0), self.rect, 2)
-
-        if self.atacando:
-            self.image = self.caminaizquierda[self.cuenta_imagenes // 1]  # Actualizar la imagen
-            pantalla.blit(self.image, (int(self.px), int(self.py)))
-            pygame.draw.rect(pantalla, (255, 0, 0), self.rect, 2)
-
-        self.cuenta_imagenes += 1
+        # Cargamos las animaciones correspondientes al enemigo1:
+        self.cargar_animaciones(
+            caminar=[f"imagenes/enemigo2/andar/e2_andar{i + 1}.png" for i in range(8)],
+            atacar=[f"imagenes/enemigo2/ataque/e2_ataque{i + 1}.png" for i in range(10)]
+        )
 
 
 
