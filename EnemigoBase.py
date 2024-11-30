@@ -40,7 +40,6 @@ class EnemigoBase(pygame.sprite.Sprite):
         # Control de ataque
         self.atacando = False
         self.contador_animacion_ataques = 0
-        self.tiempo_entre_ataques = random.randrange(30, 60)
 
 
 
@@ -79,6 +78,13 @@ class EnemigoBase(pygame.sprite.Sprite):
                 self.atacando = False
                 self.estado = "caminar"
 
+    # Metodo de enemigos para recibir daño:
+    def quitar_vida(self, danio):
+        self.vida -= danio
+        if self.vida <= 0:
+            self.kill()
+
+
     # Metodo de movimiento:
     def mover(self):
         # Comprueba que el estado es andando, si ataca permanece quieto:
@@ -107,6 +113,7 @@ class EnemigoBase(pygame.sprite.Sprite):
     # Metodo para dibujar a los enemigos:
     def dibujar(self, pantalla):
 
-        pantalla.blit(self.image, self.rect.topleft)
+        pantalla.blit(self.image, (self.px, self.py))
+
         # Opcional: Dibujar el rectángulo de colisión
         pygame.draw.rect(pantalla, VERDE if not self.atacando else ROJO, self.rect, 2)

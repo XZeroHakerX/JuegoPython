@@ -42,9 +42,16 @@ class Lvl1(pygame.sprite.Sprite):
 
     def generar_enemigo(self):
         tipo_elegido = random.choice([Enemigo1, Enemigo2])
-        nuevo_enemigo = tipo_elegido()
+        altura_y = self.generador_y_aleatorio()
+        nuevo_enemigo = tipo_elegido(next(altura_y))
         self.enemigos.add(nuevo_enemigo)
 
+
+    def generador_y_aleatorio(self):
+        contador = 0
+        while True:
+            yield contador
+            contador = random.randrange(-70, 100)
 
     # Generador para generar tiempo aleatorio entre 150 y 300 frames, para la
     # generacion de enemigos:
@@ -117,10 +124,17 @@ class Lvl1(pygame.sprite.Sprite):
 
             # Bucle para comprobar si hay colisiones con enemigos:
             for enemigo in self.enemigos:
-                if self.personaje.rect.colliderect(enemigo.rect):
-                    print("¡Colisión detectada entre el personaje y el enemigo!")
-                    self.contador_Puntos += 1
-                    enemigo.kill()
+                if self.personaje.ataque_rect is not None:
+                    if self.personaje.ataque_rect.colliderect(enemigo.rect):
+                        enemigo.quitar_vida(20)
+                        self.contador_Puntos += 10
+
+                if enemigo.rect.colliderect(self.personaje.rect):
+                    muerte = self.personaje.danio_jugador(25)
+                    if muerte:
+                        pygame.quit()
+
+
 
             # Actualiza el display:
             pygame.display.flip()

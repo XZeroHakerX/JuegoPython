@@ -7,9 +7,9 @@ from EnemigoBase import EnemigoBase
 # Enemigo 1 tiene velocidad y tiempo ataque aleatorios, pero cuando se instancia el enemigo, no varian:
 class Enemigo1(EnemigoBase):
 
-    def __init__(self):
-        super().__init__(POSICION_INICIAL_X_ENEMIGO1, POSICION_INICIAL_Y_ENEMIGO1 + random.randrange(-65, 35), ANCHO_ENEMIGO1, ALTURA_ENEMIGO1, POSICION_INICIAL_X_ENEMIGO1 + CENTRO_X_CUADRADO_E1,
-                         POSICION_INICIAL_Y_ENEMIGO1 + CENTRO_Y_CUADRADO_E1, VELOCIDAD_ENEMIGO1 + random.randrange(10,30), random.choice([0.02,0.04,0.06,0.08]), VIDA_ENEMIGO1)
+    def __init__(self, posicion_aleatoria):
+        super().__init__(POSICION_INICIAL_X_ENEMIGO1, POSICION_INICIAL_Y_ENEMIGO1 + posicion_aleatoria, ANCHO_ENEMIGO1, ALTURA_ENEMIGO1, POSICION_INICIAL_X_ENEMIGO1 + CENTRO_X_CUADRADO_E1,
+                         POSICION_INICIAL_Y_ENEMIGO1 + CENTRO_Y_CUADRADO_E1 + posicion_aleatoria, VELOCIDAD_ENEMIGO1 + random.randrange(10,30), random.choice([0.02,0.04,0.06,0.08]), VIDA_ENEMIGO1)
 
         # Cargamos las animaciones correspondientes al enemigo1:
         self.cargar_animaciones(

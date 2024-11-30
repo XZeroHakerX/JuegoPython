@@ -7,10 +7,21 @@ from EnemigoBase import EnemigoBase
 # Enemigo 2 tiene velocidad y tiempo ataque aleatorios, pero cuando se instancia el enemigo, no varian:
 class Enemigo2(EnemigoBase):
 
-    def __init__(self):
-        super().__init__(POSICION_INICIAL_X_ENEMIGO2, POSICION_INICIAL_Y_ENEMIGO2 + random.randrange(-65, 35), ANCHO_ENEMIGO2, ALTURA_ENEMIGO2, POSICION_INICIAL_X_ENEMIGO2 + CENTRO_Y_CUADRADO_E2,
-                         POSICION_INICIAL_Y_ENEMIGO2 + CENTRO_Y_CUADRADO_E2, VELOCIDAD_ENEMIGO2 + random.randrange(10, 30), random.choice([0.02, 0.04, 0.06, 0.08]),
-                         VIDA_ENEMIGO2)
+    def __init__(self, posicion_aleatoria):
+        velocidad = VELOCIDAD_ENEMIGO2 + random.randrange(10, 30)
+        velocidad_ataque = random.choice([0.02, 0.04, 0.06, 0.08])
+        y_aleatorio = random.randint(250, 400)
+        super().__init__(
+            POSICION_INICIAL_X_ENEMIGO2,
+            y_aleatorio,
+            ANCHO_ENEMIGO2,
+            ALTURA_ENEMIGO2,
+            POSICION_INICIAL_X_ENEMIGO2 + CENTRO_X_CUADRADO_E2,
+            y_aleatorio + CENTRO_Y_CUADRADO_E2 ,
+            velocidad,
+            velocidad_ataque,
+            VIDA_ENEMIGO2
+        )
 
         # Cargamos las animaciones correspondientes al enemigo1:
         self.cargar_animaciones(
