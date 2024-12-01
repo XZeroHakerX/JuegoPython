@@ -6,15 +6,32 @@ from EnemigoBase import EnemigoBase
 
 # Enemigo 1 tiene velocidad y tiempo ataque aleatorios, pero cuando se instancia el enemigo, no varian:
 class Enemigo1(EnemigoBase):
+    def __init__(self, ):
+        velocidad = VELOCIDAD_ENEMIGO1 + random.randrange(5, 15)
+        velocidad_ataque = random.choice([0.02, 0.04 ])
+        y_aleatorio = POSICION_INICIAL_Y_ENEMIGO1 + random.randrange(0, 100)
 
-    def __init__(self, posicion_aleatoria):
-        super().__init__(POSICION_INICIAL_X_ENEMIGO1, POSICION_INICIAL_Y_ENEMIGO1 + posicion_aleatoria, ANCHO_ENEMIGO1, ALTURA_ENEMIGO1, POSICION_INICIAL_X_ENEMIGO1 + CENTRO_X_CUADRADO_E1,
-                         POSICION_INICIAL_Y_ENEMIGO1 + CENTRO_Y_CUADRADO_E1 + posicion_aleatoria, VELOCIDAD_ENEMIGO1 + random.randrange(10,30), random.choice([0.02,0.04,0.06,0.08]), VIDA_ENEMIGO1)
+        super().__init__(POSICION_INICIAL_X_ENEMIGO1,
+                         y_aleatorio,
+                         ANCHO_ENEMIGO1,
+                         ALTURA_ENEMIGO1,
+                         POSICION_INICIAL_X_ENEMIGO1 + CENTRO_X_CUADRADO_E1,
+                         y_aleatorio + CENTRO_Y_CUADRADO_E1,
+                         velocidad,
+                         velocidad_ataque,
+                         VIDA_ENEMIGO1,
+                         OFFSET_X_RECT_ATAQUE_E1,
+                         OFFSET_Y_RECT_ATAQUE_E1,
+                         ANCHO_RECT_ATAQUE_E1,
+                         ALTO_RECT_ATAQUE_E1
+                         )
 
         # Cargamos las animaciones correspondientes al enemigo1:
         self.cargar_animaciones(
-            caminar=[f"imagenes/enemigo2/andar/e2_andar{i + 1}.png" for i in range(8)],
-            atacar=[f"imagenes/enemigo2/ataque/e2_ataque{i + 1}.png" for i in range(10)]
+            caminar=[f"imagenes/enemigo1/andar/e1_andar{i + 1}.png" for i in range(6)],
+            atacar=[f"imagenes/enemigo1/atacar/e1_atacar{i + 1}.png" for i in range(6)],
+            danio=[f"imagenes/enemigo1/danio/e1_danio{i + 1}.png" for i in range(10)],
+            morir=[f"imagenes/enemigo1/morir/e1_morir{i + 1}.png" for i in range(20)]
         )
 
 
