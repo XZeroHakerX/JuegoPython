@@ -4,16 +4,15 @@ import random
 
 from EnemigoBase import EnemigoBase
 
-
-
 # Enemigo 2 tiene velocidad y tiempo ataque aleatorios, pero cuando se instancia el enemigo, no varian:
 
 class Enemigo2(EnemigoBase):
 
     def __init__(self):
-
-        velocidad = VELOCIDAD_ENEMIGO2 + random.randrange(5, 10)
+        # Asignamos velocidad y velocidad_ataque con un factor aleatorio:
+        velocidad = VELOCIDAD_ENEMIGO2 + random.randrange(4, 10)
         velocidad_ataque = random.choice([0.02, 0.04, 0.06, 0.08])
+        # Igual para la posicion y inicial:
         y_aleatorio =  POSICION_INICIAL_Y_ENEMIGO2 + random.randrange(0,100)
         super().__init__(
             POSICION_INICIAL_X_ENEMIGO2,
